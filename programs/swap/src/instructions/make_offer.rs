@@ -5,11 +5,11 @@ use anchor_spl::{
 };
 use crate::{Offer, ANCHOR_DISCRIMINATOR};
 
-use super::transfer_token;
+use super::transfer_tokens;
 
 pub fn send_offered_tokens_to_vault(ctx: &Context<MakeOffer>,
     token_a_offered_amount: u64) -> Result<()> {
-    transfer_token(
+    transfer_tokens(
         &ctx.accounts.maker_token_account_a,
         &ctx.accounts.vault,
         &token_a_offered_amount, 
@@ -40,8 +40,6 @@ pub struct MakeOffer<'info>{
 
     #[account(mut)]
     pub maker: Signer<'info>,
-
-    #[account()]
 
     #[account(mint::token_program = token_program)]
     pub token_mint_a: InterfaceAccount<'info, Mint>,
